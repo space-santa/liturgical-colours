@@ -1,23 +1,23 @@
-FROM python:alpine
+# Stage 1: Build the app
+FROM node:20-alpine AS build
 
-RUN mkdir /app
+WORKDIR /usr/src/app
 
-WORKDIR /app
+COPY package*.json ./
+RUN npm ci
 
-RUN apk update
-RUN apk add --update --no-cache --virtual .build-deps alpine-sdk python3-dev
+COPY . .
+RUN npm run build
 
-ENV VIRTUAL_ENV=/app/.venv
-RUN python3 -m venv $VIRTUAL_ENV
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+# Stage 2: Run the app
+FROM node:20-alpine
 
-RUN pip install --upgrade pip
-COPY requirements/requirements.txt .
-RUN pip install -r requirements.txt
+WORKDIR /usr/src/app
 
-RUN apk del .build-deps
+COPY --from=build /usr/src/app/dist ./dist
+COPY package*.json ./
+RUN npm ci --omit=dev
 
-COPY api.py .
-COPY ./src ./src
+EXPOSE 8000
 
-CMD ["uvicorn", "api:app", "--host", "0.0.0.0"]
+CMD ["node", "dist/index.js"]
