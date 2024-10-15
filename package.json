@@ -6,7 +6,8 @@
     "build": "tsc",
     "start": "ts-node src/index.ts",
     "test": "jest",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "check-format": "prettier --check ."
   },
   "keywords": [],
   "author": "",
