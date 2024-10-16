@@ -2,5 +2,7 @@ services:
   api:
     build: .
     restart: 'unless-stopped'
+    environment:
+      - TZ=Australia/Melbourne
     ports:
       - '8123:8000'
