@@ -7,6 +7,7 @@ const testCases = [
   { date: '2024-05-19', expectedColour: 'red' }, // Pentecost
   { date: '2024-11-30', expectedColour: 'red' }, // St. Andrew's Day
   { date: '2024-10-17', expectedColour: 'red' }, // St. Ignatius of Antioch's Day
+  { date: '2024-10-18', expectedColour: 'red' }, // St. Luke
   { date: '2024-12-15', expectedColour: 'rose' }, // Third Advent Sunday
   { date: '2024-03-10', expectedColour: 'rose' }, // Fourth Sunday of Lent
   { date: '2024-08-15', expectedColour: 'white' }, // Assumption of Mary
