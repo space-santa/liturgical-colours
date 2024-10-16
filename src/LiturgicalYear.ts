@@ -68,6 +68,7 @@ export default class LiturgicalYear {
   assumptionOfMary: DateTime;
   allSaints: DateTime;
   stAndrew: DateTime;
+  stIgnatiusOfAntioch: DateTime;
   thirdAdvent: DateTime;
 
   constructor(today: DateTime) {
@@ -93,6 +94,11 @@ export default class LiturgicalYear {
       year: this.year,
       month: 11,
       day: 30,
+    });
+    this.stIgnatiusOfAntioch = DateTime.fromObject({
+      year: this.year,
+      month: 10,
+      day: 17,
     });
     this.thirdAdvent = this.firstAdvent.plus({ days: 14 });
     enforceSunday(this.thirdAdvent);
@@ -139,7 +145,13 @@ export default class LiturgicalYear {
   }
 
   get redDays() {
-    return [this.palmSunday, this.goodFriday, this.pentecost, this.stAndrew];
+    return [
+      this.palmSunday,
+      this.goodFriday,
+      this.pentecost,
+      this.stAndrew,
+      this.stIgnatiusOfAntioch,
+    ];
   }
 
   get whiteDays() {
