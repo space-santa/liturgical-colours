@@ -12,6 +12,8 @@ const testCases = [
   { date: '2024-03-10', expectedColour: 'rose' }, // Fourth Sunday of Lent
   { date: '2024-08-15', expectedColour: 'white' }, // Assumption of Mary
   { date: '2024-11-01', expectedColour: 'white' }, // All Saints' Day
+  { date: '2024-11-11', expectedColour: 'white' }, // St Martin
+  { date: '2024-12-14', expectedColour: 'white' }, // St John on the Cross
   { date: '2024-03-06', expectedColour: 'purple' }, // A day in Lent
   { date: '2024-12-03', expectedColour: 'purple' }, // A day in Advent
   { date: '2024-12-25', expectedColour: 'white' }, // A day in Christmas time
@@ -20,6 +22,8 @@ const testCases = [
   { date: '2024-02-04', expectedColour: 'green' }, // A day in 1st ordinary time
   { date: '2024-05-22', expectedColour: 'green' }, // A day in 2nd ordinary time
   { date: '2024-10-28', expectedColour: 'red' }, // Saints Simon and Jude
+  { date: '2024-12-26', expectedColour: 'red' }, // Saint Stephen
+  { date: '2024-12-28', expectedColour: 'red' }, // Holy Innocents
 ];
 
 describe('GET /api/colour-of-the-day', () => {

@@ -154,6 +154,24 @@ export const getLiturgicalYear = (year: number): LiturgicalYear => {
         day: 28,
       }),
     },
+    stStephen: {
+      colour: Colour.Red,
+      name: 'Saint Stephen',
+      value: DateTime.fromObject({
+        year: year,
+        month: 12,
+        day: 26,
+      }),
+    },
+    holyInnocents: {
+      colour: Colour.Red,
+      name: 'The Holy Innocents',
+      value: DateTime.fromObject({
+        year: year,
+        month: 12,
+        day: 28,
+      }),
+    },
     assumptionOfMary: {
       colour: Colour.White,
       name: 'Assumption of Mary',
@@ -161,6 +179,24 @@ export const getLiturgicalYear = (year: number): LiturgicalYear => {
         year: year,
         month: 8,
         day: 15,
+      }),
+    },
+    stMartin: {
+      colour: Colour.White,
+      name: 'St Martin of Tours',
+      value: DateTime.fromObject({
+        year: year,
+        month: 11,
+        day: 11,
+      }),
+    },
+    stJohnOfTheCross: {
+      colour: Colour.White,
+      name: 'St John of the Cross',
+      value: DateTime.fromObject({
+        year: year,
+        month: 12,
+        day: 14,
       }),
     },
     allSaints: {
