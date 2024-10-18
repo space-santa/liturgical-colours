@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { DateTime } from 'luxon';
-import LiturgicalYear from './LiturgicalYear';
+import ColourFactory from './LiturgicalYear';
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.get('/api/colour-of-the-day', (req, res) => {
     }
     dateObj = parsedDate;
   }
-  const ly = new LiturgicalYear(dateObj);
+  const ly = new ColourFactory(dateObj);
   res.json({ colour: ly.getTodaysColour() });
 });
 

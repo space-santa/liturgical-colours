@@ -15,9 +15,11 @@ const testCases = [
   { date: '2024-03-06', expectedColour: 'purple' }, // A day in Lent
   { date: '2024-12-03', expectedColour: 'purple' }, // A day in Advent
   { date: '2024-12-25', expectedColour: 'white' }, // A day in Christmas time
+  { date: '2024-01-05', expectedColour: 'white' }, // Another day in Christmas time
   { date: '2024-01-07', expectedColour: 'white' }, // Another day in Christmas time
   { date: '2024-02-04', expectedColour: 'green' }, // A day in 1st ordinary time
   { date: '2024-05-22', expectedColour: 'green' }, // A day in 2nd ordinary time
+  { date: '2024-10-28', expectedColour: 'red' }, // Saints Simon and Jude
 ];
 
 describe('GET /api/colour-of-the-day', () => {
