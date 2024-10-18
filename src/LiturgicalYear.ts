@@ -53,11 +53,11 @@ export enum Colour {
   White = 'white',
 }
 
-export interface LiturgicalDay {
+export type LiturgicalDay = {
   colour: Colour;
   name: string;
   value: DateTime;
-}
+};
 
 export type LiturgicalYear = {
   [key: string]: LiturgicalDay;
