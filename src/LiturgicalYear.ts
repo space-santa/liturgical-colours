@@ -1,136 +1,185 @@
 import { DateTime } from 'luxon';
-import { Colour, getLiturgicalYear, LiturgicalYear } from './fixedDays';
-import { enforceThursday } from './enforceWeekday';
+import {
+  enforceFriday,
+  enforceMonday,
+  enforceSunday,
+  enforceThursday,
+  enforceWednesday,
+} from './enforceWeekday';
 
-function dateIsInChristmasTime(value: DateTime): boolean {
-  const christmas = DateTime.fromObject({
-    year: value.year,
-    month: 12,
-    day: 25,
-  });
-
-  const epiphany = DateTime.fromObject({
-    year: value.year + (value.month === 1 && value.day > 6 ? 0 : 1),
-    month: 1,
-    day: 6,
-  });
-
-  const baptismOfTheLord = epiphany.plus({ days: 7 - epiphany.weekday });
-
-  return christmas <= value && value <= baptismOfTheLord;
+function calculateEaster(year: number): DateTime {
+  const a = year % 19;
+  const b = Math.floor(year / 100);
+  const c = year % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const month = Math.floor((h + l - 7 * m + 114) / 31);
+  const day = ((h + l - 7 * m + 114) % 31) + 1;
+  const easterSunday = DateTime.fromObject({ year, month: month, day });
+  return enforceSunday(easterSunday);
 }
 
-export default class ColourFactory {
-  today: DateTime;
-  year: number;
-  days: LiturgicalYear;
-
-  constructor(today: DateTime) {
-    this.today = today;
-    this.year = this.today.year;
-    this.days = getLiturgicalYear(this.year);
-  }
-
-  get thirdAdvent() {
-    return this.days.thirdAdvent;
-  }
-
-  get ashWednesday() {
-    return this.days.ashWednesday;
-  }
-
-  get fourthSundayOfLent() {
-    return this.days.fourthSundayOfLent;
-  }
-
-  get palmSunday() {
-    return this.days.palmSunday;
-  }
-
-  get maundyThursday() {
-    return this.days.maundyThursday.value;
-  }
-
-  get goodFriday() {
-    return this.days.goodFriday;
-  }
-
-  get pentecost() {
-    return this.days.pentecost;
-  }
-
-  get roseDays() {
-    return [this.thirdAdvent.value, this.fourthSundayOfLent.value];
-  }
-
-  get redDays() {
-    return Object.values(this.days)
-      .filter((item) => item.colour === Colour.Red)
-      .map((item) => item.value);
-  }
-
-  get whiteDays() {
-    return Object.values(this.days)
-      .filter((item) => item.colour === Colour.White)
-      .map((item) => item.value);
-  }
-
-  dateIsInAdvent(value: DateTime): boolean {
-    const christmas = DateTime.fromObject({
-      year: value.year,
-      month: 12,
-      day: 25,
-    });
-    return this.days.firstAdvent.value <= value && value < christmas;
-  }
-
-  dateIsInOrdinaryTime(value: DateTime): boolean {
-    return (
-      (this.days.firstMondayOfOrdinaryTime.value <= value &&
-        value < this.ashWednesday.value) ||
-      (this.pentecost.value < value && value < this.days.firstAdvent.value)
-    );
-  }
-
-  dateIsInLent(value: DateTime): boolean {
-    return this.ashWednesday.value <= value && value < this.maundyThursday;
-  }
-
-  dateIsInEasterTime(value: DateTime): boolean {
-    return this.maundyThursday <= value && value < this.pentecost.value;
-  }
-
-  isRoseDay() {
-    return this.roseDays.some((day) => day.hasSame(this.today, 'day'));
-  }
-
-  isRedDay() {
-    return this.redDays.some((day) => day.hasSame(this.today, 'day'));
-  }
-
-  isWhiteDay() {
-    return (
-      this.whiteDays.some((day: DateTime) => day.hasSame(this.today, 'day')) ||
-      dateIsInChristmasTime(this.today) ||
-      this.dateIsInEasterTime(this.today)
-    );
-  }
-
-  isPurpleDay() {
-    return this.dateIsInLent(this.today) || this.dateIsInAdvent(this.today);
-  }
-
-  getTodaysColour(): string {
-    if (this.isRoseDay()) return Colour.Rose;
-
-    if (this.isRedDay()) return Colour.Red;
-
-    if (this.isWhiteDay()) return Colour.White;
-
-    if (this.isPurpleDay()) return Colour.Purple;
-
-    if (this.dateIsInOrdinaryTime(this.today)) return Colour.Green;
-
-    return Colour.White;
-  }
+function calculateFirstOrdinaryTime(year: number): DateTime {
+  const epiphanyDate = DateTime.fromObject({ year, month: 1, day: 6 });
+  const dayOfWeek = epiphanyDate.weekday;
+  const daysToNextSunday = (7 - dayOfWeek) % 7;
+  const firstSundayAfterEpiphany = epiphanyDate.plus({
+    days: daysToNextSunday,
+  });
+  const firstOrdinaryTimeDate = firstSundayAfterEpiphany.plus({ days: 1 });
+  return enforceMonday(firstOrdinaryTimeDate);
 }
+
+function calculateFirstAdvent(year: number): DateTime {
+  const stAndrewDate = DateTime.fromObject({ year, month: 11, day: 30 });
+  const dayOfWeek = stAndrewDate.weekday;
+  const daysToNextSunday = (7 - dayOfWeek) % 7;
+  const firstAdventDate = stAndrewDate.plus({ days: daysToNextSunday });
+  return enforceSunday(firstAdventDate);
+}
+
+export enum Colour {
+  Green = 'green',
+  Rose = 'rose',
+  Purple = 'purple',
+  Red = 'red',
+  White = 'white',
+}
+
+export interface LiturgicalDay {
+  colour: Colour;
+  name: string;
+  value: DateTime;
+}
+
+export type LiturgicalYear = {
+  [key: string]: LiturgicalDay;
+};
+
+export const getLiturgicalYear = (year: number): LiturgicalYear => {
+  const easterSunday = calculateEaster(year);
+  const firstAdvent = calculateFirstAdvent(year);
+
+  return {
+    firstMondayOfOrdinaryTime: {
+      colour: Colour.Green,
+      name: 'First Monday of Ordinary Time',
+      value: calculateFirstOrdinaryTime(year),
+    },
+    ashWednesday: {
+      colour: Colour.Purple,
+      name: 'Ash Wednesday',
+      value: enforceWednesday(easterSunday.minus({ days: 46 })),
+    },
+    fourthSundayOfLent: {
+      colour: Colour.Rose,
+      name: 'Fourth Sunday of Lent',
+      value: enforceSunday(easterSunday.minus({ days: 21 })),
+    },
+    palmSunday: {
+      colour: Colour.Red,
+      name: 'Palm Sunday',
+      value: enforceSunday(easterSunday.minus({ days: 7 })),
+    },
+    maundyThursday: {
+      colour: Colour.Red,
+      name: 'Maundy Thursday',
+      value: enforceThursday(easterSunday.minus({ days: 3 })),
+    },
+    goodFriday: {
+      colour: Colour.Red,
+      name: 'Good Friday',
+      value: enforceFriday(easterSunday.minus({ days: 2 })),
+    },
+    easterSunday: {
+      colour: Colour.White,
+      name: 'Easter Sunday',
+      value: easterSunday,
+    },
+    pentecost: {
+      colour: Colour.Red,
+      name: 'Pentecost',
+      value: enforceSunday(easterSunday.plus({ days: 49 })),
+    },
+    firstAdvent: {
+      name: 'First Advent',
+      colour: Colour.Purple,
+      value: firstAdvent,
+    },
+    thirdAdvent: {
+      name: 'Third Advent',
+      colour: Colour.Rose,
+      value: enforceSunday(firstAdvent.plus({ days: 14 })),
+    },
+    stAndrew: {
+      name: 'St Andrew',
+      colour: Colour.Red,
+      value: DateTime.fromObject({
+        year: year,
+        month: 11,
+        day: 30,
+      }),
+    },
+    stIgnatiusOfAntioch: {
+      colour: Colour.Red,
+      name: 'St Ignatius of Antioch',
+      value: DateTime.fromObject({
+        year: year,
+        month: 10,
+        day: 17,
+      }),
+    },
+    stLuke: {
+      colour: Colour.Red,
+      name: 'St Luke',
+      value: DateTime.fromObject({
+        year: year,
+        month: 10,
+        day: 18,
+      }),
+    },
+    stsSimonAndJude: {
+      colour: Colour.Red,
+      name: 'Saints Simon and Jude',
+      value: DateTime.fromObject({
+        year: year,
+        month: 10,
+        day: 28,
+      }),
+    },
+    assumptionOfMary: {
+      colour: Colour.White,
+      name: 'Assumption of Mary',
+      value: DateTime.fromObject({
+        year: year,
+        month: 8,
+        day: 15,
+      }),
+    },
+    allSaints: {
+      colour: Colour.White,
+      name: 'All Saints',
+      value: DateTime.fromObject({
+        year: year,
+        month: 11,
+        day: 1,
+      }),
+    },
+    allSouls: {
+      colour: Colour.White, // This should be black.
+      name: 'All Souls',
+      value: DateTime.fromObject({
+        year: year,
+        month: 11,
+        day: 2,
+      }),
+    },
+  };
+};

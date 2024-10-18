@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { DateTime } from 'luxon';
-import ColourFactory from './LiturgicalYear';
+import ColourFactory from './ColourFactory';
 
 const app = express();
 
