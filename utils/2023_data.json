@@ -1,0 +1,301 @@
+{
+    "12": {
+        "3": {
+            "name": "First Sunday of Advent",
+            "color": "purple",
+            "month": 12,
+            "day": 3,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "celebration with precedence over solemnities",
+            "liturgicalYear": "YEAR B",
+            "liturgicalSeason": "ADVENT"
+        },
+        "4": {
+            "name": "Monday of the 1st Week of Advent",
+            "color": "purple",
+            "month": 12,
+            "day": 4,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "weekday",
+            "liturgicalSeason": "ADVENT"
+        },
+        "5": {
+            "name": "Tuesday of the 1st Week of Advent",
+            "color": "purple",
+            "month": 12,
+            "day": 5,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "weekday",
+            "liturgicalSeason": "ADVENT"
+        },
+        "6": {
+            "name": "Wednesday of the 1st Week of Advent",
+            "color": "purple",
+            "month": 12,
+            "day": 6,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "weekday",
+            "liturgicalSeason": "ADVENT"
+        },
+        "7": {
+            "name": "Saint Ambrose, Bishop and Doctor of the Church",
+            "color": "white",
+            "month": 12,
+            "day": 7,
+            "year": 2023,
+            "type": "fixed",
+            "gradeLcl": "Memorial",
+            "liturgicalSeason": "ADVENT"
+        },
+        "8": {
+            "name": "The Immaculate Conception of the Blessed Virgin Mary",
+            "color": "white",
+            "month": 12,
+            "day": 8,
+            "year": 2023,
+            "type": "fixed",
+            "gradeLcl": "SOLEMNITY",
+            "liturgicalYear": "YEAR B",
+            "liturgicalSeason": "ADVENT"
+        },
+        "9": {
+            "name": "Saturday of the 1st Week of Advent",
+            "color": "purple",
+            "month": 12,
+            "day": 9,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "weekday",
+            "liturgicalSeason": "ADVENT"
+        },
+        "10": {
+            "name": "Second Sunday of Advent",
+            "color": "purple",
+            "month": 12,
+            "day": 10,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "celebration with precedence over solemnities",
+            "liturgicalYear": "YEAR B",
+            "liturgicalSeason": "ADVENT"
+        },
+        "11": {
+            "name": "Monday of the 2nd Week of Advent",
+            "color": "purple",
+            "month": 12,
+            "day": 11,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "weekday",
+            "liturgicalSeason": "ADVENT"
+        },
+        "12": {
+            "name": "Tuesday of the 2nd Week of Advent",
+            "color": "purple",
+            "month": 12,
+            "day": 12,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "weekday",
+            "liturgicalSeason": "ADVENT"
+        },
+        "13": {
+            "name": "Saint Lucy of Syracuse, Virgin and Martyr",
+            "color": "red",
+            "month": 12,
+            "day": 13,
+            "year": 2023,
+            "type": "fixed",
+            "gradeLcl": "Memorial",
+            "liturgicalSeason": "ADVENT"
+        },
+        "14": {
+            "name": "Saint John of the Cross, Priest and Doctor of the Church",
+            "color": "white",
+            "month": 12,
+            "day": 14,
+            "year": 2023,
+            "type": "fixed",
+            "gradeLcl": "Memorial",
+            "liturgicalSeason": "ADVENT"
+        },
+        "15": {
+            "name": "Friday of the 2nd Week of Advent",
+            "color": "purple",
+            "month": 12,
+            "day": 15,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "weekday",
+            "liturgicalSeason": "ADVENT"
+        },
+        "16": {
+            "name": "Saturday of the 2nd Week of Advent",
+            "color": "purple",
+            "month": 12,
+            "day": 16,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "weekday",
+            "liturgicalSeason": "ADVENT"
+        },
+        "17": {
+            "name": "Third Sunday of Advent (Gaudete)",
+            "color": "pink",
+            "month": 12,
+            "day": 17,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "celebration with precedence over solemnities",
+            "liturgicalYear": "YEAR B",
+            "liturgicalSeason": "ADVENT"
+        },
+        "18": {
+            "name": "Monday of the 3rd Week of Advent",
+            "color": "purple",
+            "month": 12,
+            "day": 18,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "weekday",
+            "liturgicalSeason": "ADVENT"
+        },
+        "19": {
+            "name": "Tuesday of the 3rd Week of Advent",
+            "color": "purple",
+            "month": 12,
+            "day": 19,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "weekday",
+            "liturgicalSeason": "ADVENT"
+        },
+        "20": {
+            "name": "Wednesday of the 3rd Week of Advent",
+            "color": "purple",
+            "month": 12,
+            "day": 20,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "weekday",
+            "liturgicalSeason": "ADVENT"
+        },
+        "21": {
+            "name": "Thursday of the 3rd Week of Advent",
+            "color": "purple",
+            "month": 12,
+            "day": 21,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "weekday",
+            "liturgicalSeason": "ADVENT"
+        },
+        "22": {
+            "name": "Friday of the 3rd Week of Advent",
+            "color": "purple",
+            "month": 12,
+            "day": 22,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "weekday",
+            "liturgicalSeason": "ADVENT"
+        },
+        "23": {
+            "name": "Saturday of the 3rd Week of Advent",
+            "color": "purple",
+            "month": 12,
+            "day": 23,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "weekday",
+            "liturgicalSeason": "ADVENT"
+        },
+        "24": {
+            "name": "Fourth Sunday of Advent",
+            "color": "purple",
+            "month": 12,
+            "day": 24,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "celebration with precedence over solemnities",
+            "liturgicalYear": "YEAR B",
+            "liturgicalSeason": "ADVENT"
+        },
+        "25": {
+            "name": "Christmas",
+            "color": "white",
+            "month": 12,
+            "day": 25,
+            "year": 2023,
+            "type": "fixed",
+            "gradeLcl": "celebration with precedence over solemnities",
+            "liturgicalYear": "YEAR B",
+            "liturgicalSeason": "CHRISTMAS"
+        },
+        "26": {
+            "name": "Saint Stephen, The First Martyr",
+            "color": "red",
+            "month": 12,
+            "day": 26,
+            "year": 2023,
+            "type": "fixed",
+            "gradeLcl": "FEAST",
+            "liturgicalSeason": "CHRISTMAS"
+        },
+        "27": {
+            "name": "Saint John, Apostle and Evangelist",
+            "color": "white",
+            "month": 12,
+            "day": 27,
+            "year": 2023,
+            "type": "fixed",
+            "gradeLcl": "FEAST",
+            "liturgicalSeason": "CHRISTMAS"
+        },
+        "28": {
+            "name": "The Holy Innocents, Martyrs",
+            "color": "red",
+            "month": 12,
+            "day": 28,
+            "year": 2023,
+            "type": "fixed",
+            "gradeLcl": "FEAST",
+            "liturgicalSeason": "CHRISTMAS"
+        },
+        "29": {
+            "name": "5th Day of the Octave of Christmas",
+            "color": "white",
+            "month": 12,
+            "day": 29,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "weekday",
+            "liturgicalSeason": "CHRISTMAS"
+        },
+        "30": {
+            "name": "6th Day of the Octave of Christmas",
+            "color": "white",
+            "month": 12,
+            "day": 30,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "weekday",
+            "liturgicalSeason": "CHRISTMAS"
+        },
+        "31": {
+            "name": "Holy Family of Jesus, Mary and Joseph",
+            "color": "white",
+            "month": 12,
+            "day": 31,
+            "year": 2023,
+            "type": "mobile",
+            "gradeLcl": "FEAST OF THE LORD",
+            "liturgicalYear": "YEAR B",
+            "liturgicalSeason": "CHRISTMAS"
+        }
+    }
+}
