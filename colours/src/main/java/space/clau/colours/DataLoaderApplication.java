@@ -28,7 +28,7 @@ public class DataLoaderApplication {
             EntityTransaction transaction = em.getTransaction();
             transaction.begin();
 
-            Path zipFilePath = Paths.get(getClass().getClassLoader().getResource("data.zip").toURI());
+            Path zipFilePath = Paths.get("data.zip");
             Path extractDir = Paths.get("data_tmp");
 
             try {
