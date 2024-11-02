@@ -1,9 +1,5 @@
 package space.clau.colours;
 
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -14,49 +10,40 @@ import java.util.zip.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@SpringBootApplication
-public class DataLoaderApplication {
+public class DataLoader {
+    public void loadData(EntityManagerFactory emf) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
 
-    public static void main(String[] args) {
-        SpringApplication.run(DataLoaderApplication.class, args);
-    }
+        Path zipFilePath = Paths.get("data.zip");
+        Path extractDir = Paths.get("data_tmp");
 
-    @Bean
-    CommandLineRunner loadData(EntityManagerFactory emf) {
-        return args -> {
-            EntityManager em = emf.createEntityManager();
-            EntityTransaction transaction = em.getTransaction();
-            transaction.begin();
+        try {
+            // Extract the zip file
+            unzip(zipFilePath, extractDir);
 
-            Path zipFilePath = Paths.get("data.zip");
-            Path extractDir = Paths.get("data_tmp");
+            // Process extracted JSON files
+            Files.walk(extractDir)
+                    .filter(Files::isRegularFile)
+                    .forEach(file -> {
+                        try {
+                            processJsonFile(em, file);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
 
-            try {
-                // Extract the zip file
-                unzip(zipFilePath, extractDir);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
 
-                // Process extracted JSON files
-                Files.walk(extractDir)
-                        .filter(Files::isRegularFile)
-                        .forEach(file -> {
-                            try {
-                                processJsonFile(em, file);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        });
-
-                transaction.commit();
-            } catch (Exception e) {
-                transaction.rollback();
-                e.printStackTrace();
-            } finally {
-                em.close();
-            }
-
-            // Clean up extracted files
-            deleteDirectory(extractDir.toFile());
-        };
+        // Clean up extracted files
+        deleteDirectory(extractDir.toFile());
     }
 
     private void unzip(Path zipFilePath, Path extractDir) throws IOException {

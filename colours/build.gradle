@@ -24,6 +24,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     runtimeOnly 'org.hsqldb:hsqldb:2.6.1'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -31,21 +32,6 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
-}
-task runDataLoader(type: JavaExec) {
-	classpath = sourceSets.main.runtimeClasspath
-	mainClass = 'space.clau.colours.DataLoaderApplication'
-}
-task buildDataLoader(type: Jar) {
-    archiveBaseName = 'data-loader'
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-    from(sourceSets.main.output)
-	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    manifest {
-        attributes 'Main-Class': 'space.clau.colours.DataLoaderApplication'
-    }
 }
 
 task buildMain(type: Jar) {
