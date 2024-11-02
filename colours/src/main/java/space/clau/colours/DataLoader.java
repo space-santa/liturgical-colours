@@ -73,6 +73,9 @@ public class DataLoader {
 
         yearData.forEach((month, dayMap) -> {
             dayMap.forEach((day, liturgicalDay) -> {
+                if ("11".equals(month) && "2".equals(day)) {
+                    liturgicalDay.setColour("black");
+                }
                 em.persist(liturgicalDay);
             });
         });
