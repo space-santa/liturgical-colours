@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'space.clau'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2'
 
 java {
 	toolchain {
@@ -34,10 +34,47 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-task buildMain(type: Jar) {
-    archiveBaseName = 'liturgical-colours'
-    from sourceSets.main.output
-    include 'space/clau/colours/ColoursApplication.class'
+bootJar {
+    archiveBaseName.set('liturgical-colours')
+    mainClass.set('space.clau.colours.ColoursApplication')
+}
+
+task deployJar {
+    dependsOn bootJar
+    doLast {
+        def versionedDeployDir = file("./deploy_${project.version}")
+        def deployDir = file("./deploy")
+        versionedDeployDir.mkdirs()
+
+        // Copy the existing deploy directory to the versioned directory
+        copy {
+            from deployDir
+            into versionedDeployDir
+        }
+
+        // Copy the jar to the versioned deploy directory
+        def jarFile = bootJar.archiveFile.get().asFile
+        copy {
+            from jarFile
+            into versionedDeployDir
+            rename {
+                String fileName ->
+                // Adjust the renaming if necessary
+                fileName.replace("-SNAPSHOT", "")
+            }
+        }
+
+        // Replace the jar name in existing files
+        def newJarName = jarFile.getName().replace("-SNAPSHOT", "")
+        def filesToEdit = fileTree(dir: versionedDeployDir, include: ['*.service', '*.sh']) // Adjust the patterns as needed
+
+        filesToEdit.each { file ->
+            file.text = file.text.replaceAll(/PLACEHOLDER\.jar/, newJarName)
+        }
+
+        // Zip the versioned deploy directory
+        ant.zip(destfile: "./deploy_${project.version}.zip", basedir: versionedDeployDir)
+    }
 }
 
 bootRun {

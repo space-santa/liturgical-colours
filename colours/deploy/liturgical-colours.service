@@ -1,0 +1,11 @@
+[Unit]
+Description=Liturgical Colours
+After=network.target
+
+[Service]
+User=space
+ExecStart=/usr/bin/java -jar /opt/bin/PLACEHOLDER.jar
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
