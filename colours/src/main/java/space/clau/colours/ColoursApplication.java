@@ -12,10 +12,8 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Bean;
 
 import space.clau.colours.DataLoader;
-import space.clau.colours.DataLoaderApplication;
 
 @SpringBootApplication
-@ComponentScan(excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = DataLoaderApplication.class))
 public class ColoursApplication {
 
 	public static void main(String[] args) {
