@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 User=space
-ExecStart=/usr/bin/java -jar /opt/bin/PLACEHOLDER.jar
+ExecStart=/opt/liturgical-colours/bin/start_app.sh
 SuccessExitStatus=143
 
 [Install]
