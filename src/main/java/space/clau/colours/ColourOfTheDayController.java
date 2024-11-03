@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -17,7 +19,7 @@ public class ColourOfTheDayController {
     private LiturgicalDayRepository liturgicalDayRepository;
 
     @GetMapping("/api/colour-of-the-day/")
-    public String getColourOfTheDay(
+    public Map<String, String> getColourOfTheDay(
             @RequestParam(value = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         if (date == null) {
             date = LocalDate.now();
@@ -26,6 +28,10 @@ public class ColourOfTheDayController {
         Optional<LiturgicalDay> liturgicalDay = liturgicalDayRepository.findByYearAndMonthAndDay(
                 date.getYear(), date.getMonthValue(), date.getDayOfMonth());
 
-        return liturgicalDay.map(LiturgicalDay::getColour).orElse("Colour not found for the given date");
+        String colour = liturgicalDay.map(LiturgicalDay::getColour).orElse("Colour not found for the given date");
+        Map<String, String> response = new HashMap<>();
+        response.put("colour", colour);
+
+        return response;
     }
 }
