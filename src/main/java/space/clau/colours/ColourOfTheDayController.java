@@ -19,8 +19,8 @@ public class ColourOfTheDayController {
     private LiturgicalDayRepository liturgicalDayRepository;
 
     @GetMapping("/api/colour-of-the-day/")
-    public Map<String, String> getColourOfTheDay(
-            @RequestParam(value = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public Map<String, String> getColourOfTheDay(@RequestParam(value = "date", required = false)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         if (date == null) {
             date = LocalDate.now();
         }
@@ -28,7 +28,8 @@ public class ColourOfTheDayController {
         Optional<LiturgicalDay> liturgicalDay = liturgicalDayRepository.findByYearAndMonthAndDay(
                 date.getYear(), date.getMonthValue(), date.getDayOfMonth());
 
-        String colour = liturgicalDay.map(LiturgicalDay::getColour).orElse("Colour not found for the given date");
+        String colour = liturgicalDay.map(LiturgicalDay::getColour)
+                .orElse("Colour not found for the given date");
         Map<String, String> response = new HashMap<>();
         response.put("colour", colour);
 

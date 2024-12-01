@@ -25,13 +25,9 @@ public class LiturgicalDay {
     private String liturgicalSeason;
 
     @JsonCreator
-    public LiturgicalDay(
-            @JsonProperty("name") String name,
-            @JsonProperty("color") String colour,
-            @JsonProperty("year") int year,
-            @JsonProperty("month") int month,
-            @JsonProperty("day") int day,
-            @JsonProperty("type") String type,
+    public LiturgicalDay(@JsonProperty("name") String name, @JsonProperty("color") String colour,
+            @JsonProperty("year") int year, @JsonProperty("month") int month,
+            @JsonProperty("day") int day, @JsonProperty("type") String type,
             @JsonProperty("gradeLcl") String grade,
             @JsonProperty("liturgicalSeason") String liturgicalSeason) {
         this.name = name;
@@ -45,8 +41,7 @@ public class LiturgicalDay {
     }
 
     // No-argument constructor
-    public LiturgicalDay() {
-    }
+    public LiturgicalDay() {}
 
     public UUID getId() {
         return id;

@@ -6,8 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest(classes = ColoursApplication.class)
 class ColoursApplicationTests {
 
-	@Test
-	void contextLoads() {
-		// Ensure the Spring context loads without issues
-	}
+    @Test
+    void contextLoads() {
+        // Ensure the Spring context loads without issues
+    }
 }

@@ -12,25 +12,25 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class ColoursApplication {
 
-	public static void main(String[] args) {
-		SpringApplication app = new SpringApplication(ColoursApplication.class);
-		if (Arrays.asList(args).contains("load-data")) {
-			app.setAdditionalProfiles("dataloader");
-		}
-		app.run(args);
-	}
+    public static void main(String[] args) {
+        SpringApplication app = new SpringApplication(ColoursApplication.class);
+        if (Arrays.asList(args).contains("load-data")) {
+            app.setAdditionalProfiles("dataloader");
+        }
+        app.run(args);
+    }
 
-	@Bean
-	CommandLineRunner loadData(EntityManagerFactory emf, ApplicationContext context) {
-		return args -> {
-			if (!Arrays.asList(args).contains("load-data")) {
-				return;
-			}
+    @Bean
+    CommandLineRunner loadData(EntityManagerFactory emf, ApplicationContext context) {
+        return args -> {
+            if (!Arrays.asList(args).contains("load-data")) {
+                return;
+            }
 
-			DataLoader dl = new DataLoader();
-			dl.loadData(emf);
+            DataLoader dl = new DataLoader();
+            dl.loadData(emf);
 
-			SpringApplication.exit(context, () -> 0);
-		};
-	}
+            SpringApplication.exit(context, () -> 0);
+        };
+    }
 }

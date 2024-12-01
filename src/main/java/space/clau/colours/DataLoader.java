@@ -24,15 +24,13 @@ public class DataLoader {
             unzip(zipFilePath, extractDir);
 
             // Process extracted JSON files
-            Files.walk(extractDir)
-                    .filter(Files::isRegularFile)
-                    .forEach(file -> {
-                        try {
-                            processJsonFile(em, file);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
+            Files.walk(extractDir).filter(Files::isRegularFile).forEach(file -> {
+                try {
+                    processJsonFile(em, file);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
 
             transaction.commit();
         } catch (Exception e) {
@@ -68,8 +66,7 @@ public class DataLoader {
         System.out.println("Processing file: " + file);
 
         Map<String, Map<String, LiturgicalDay>> yearData = objectMapper.readValue(content,
-                new TypeReference<Map<String, Map<String, LiturgicalDay>>>() {
-                });
+                new TypeReference<Map<String, Map<String, LiturgicalDay>>>() {});
 
         yearData.forEach((month, dayMap) -> {
             dayMap.forEach((day, liturgicalDay) -> {
