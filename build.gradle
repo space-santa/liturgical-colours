@@ -9,7 +9,7 @@ version = '0.0.4'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(23)
+		languageVersion = JavaLanguageVersion.of(21)
 	}
 }
 
@@ -79,6 +79,14 @@ task deployJar {
 
 bootRun {
     mainClass = 'space.clau.colours.ColoursApplication'
+
+    // pass stuff like -Dspring.profiles.active=prod to the app
+    systemProperties = System.properties
+
+    // pass other args to the app like so: -Pargs="load-data"
+    if (project.hasProperty('args')) {
+        args project.args.split(',')
+    }
 }
 
 springBoot {

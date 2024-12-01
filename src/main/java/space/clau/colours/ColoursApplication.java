@@ -7,11 +7,7 @@ import jakarta.persistence.EntityManagerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Bean;
-
-import space.clau.colours.DataLoader;
 
 @SpringBootApplication
 public class ColoursApplication {
