@@ -1,0 +1,101 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.0'
+	id 'io.spring.dependency-management' version '1.1.6'
+	id 'com.diffplug.spotless' version '6.0.0'
+}
+
+group = 'space.clau'
+version = '0.0.4'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+    implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
+    implementation 'org.hibernate.orm:hibernate-core:6.2.0.Final'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    runtimeOnly 'org.hsqldb:hsqldb:2.7.4'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+spotless {
+    java {
+        eclipse().configFile('eclipse-java-google-style.xml')
+    }
+}
+
+bootJar {
+    archiveBaseName.set('liturgical-colours')
+    mainClass.set('space.clau.colours.ColoursApplication')
+}
+
+task deployJar {
+    dependsOn bootJar
+    doLast {
+        def versionedDeployDir = file("./deploy_${project.version}")
+        def deployDir = file("./deploy")
+        versionedDeployDir.mkdirs()
+
+        // Copy the existing deploy directory to the versioned directory
+        copy {
+            from deployDir
+            into versionedDeployDir
+        }
+
+        // Copy the jar to the versioned deploy directory
+        def jarFile = bootJar.archiveFile.get().asFile
+        copy {
+            from jarFile
+            into versionedDeployDir
+            rename {
+                String fileName ->
+                // Adjust the renaming if necessary
+                fileName.replace("-SNAPSHOT", "")
+            }
+        }
+
+        // Replace the jar name in existing files
+        def newJarName = jarFile.getName().replace("-SNAPSHOT", "")
+        def filesToEdit = fileTree(dir: versionedDeployDir, include: ['*.service', '*.sh']) // Adjust the patterns as needed
+
+        filesToEdit.each { file ->
+            file.text = file.text.replaceAll(/PLACEHOLDER\.jar/, newJarName)
+        }
+
+        // Zip the versioned deploy directory
+        ant.zip(destfile: "./deploy_${project.version}.zip", basedir: versionedDeployDir)
+    }
+}
+
+bootRun {
+    mainClass = 'space.clau.colours.ColoursApplication'
+
+    // pass stuff like -Dspring.profiles.active=prod to the app
+    systemProperties = System.properties
+
+    // pass other args to the app like so: -Pargs="load-data"
+    if (project.hasProperty('args')) {
+        args project.args.split(',')
+    }
+}
+
+springBoot {
+    mainClass = 'space.clau.colours.ColoursApplication'
+}
