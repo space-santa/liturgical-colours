@@ -1,6 +1,5 @@
 package space.clau.colours;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
@@ -8,7 +7,6 @@ import java.util.Optional;
 public class LiturgicalDayService {
     private final LiturgicalDayRepository repository;
 
-    @Autowired
     public LiturgicalDayService(LiturgicalDayRepository repository) {
         this.repository = repository;
     }

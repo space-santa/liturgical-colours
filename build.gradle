@@ -9,9 +9,7 @@ group = 'space.clau'
 version = '0.0.4'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
-	}
+	sourceCompatibility = JavaVersion.VERSION_21
 }
 
 repositories {

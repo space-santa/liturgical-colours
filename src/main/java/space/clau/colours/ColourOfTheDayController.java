@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -19,7 +18,7 @@ public class ColourOfTheDayController {
     private LiturgicalDayRepository liturgicalDayRepository;
 
     @GetMapping("/api/colour-of-the-day/")
-    public Map<String, String> getColourOfTheDay(@RequestParam(value = "date", required = false)
+    public Map<String, String> getColourOfTheDay(@RequestParam(required = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         if (date == null) {
             date = LocalDate.now();
